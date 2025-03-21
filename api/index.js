@@ -1,7 +1,7 @@
 const express = require('express');
 require('dotenv').config();
 const cors = require('cors');
-const { dbConnection } = require('./database/config_nosql');
+const { dbConnection } = require('../database/config_nosql');
 
 
 
@@ -24,9 +24,9 @@ app.use( express.json() );
 
 
 // Rutas
-app.use('/api/auth', require('./routes/auth') );
-app.use('/api/acortados/auth', require('./routes/AcortadosAuth') );
-app.use('/api/acortados', require('./routes/Acortados') );
+app.use('/api/auth', require('../routes/auth') );
+app.use('/api/acortados/auth', require('../routes/AcortadosAuth') );
+app.use('/api/acortados', require('../routes/Acortados') );
 
 
 
