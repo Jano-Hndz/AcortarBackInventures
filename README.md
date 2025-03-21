@@ -1,9 +1,8 @@
-# Acortador de URLs
+# URL Shortener - Backend
 
 Este proyecto es una API para acortar URLs, permitiendo a los usuarios registrados gestionar sus enlaces y a los invitados generar enlaces temporales sin autenticación.
 
 ## Instalación
-
 
 1. Instala las dependencias:
    ```bash
@@ -13,10 +12,11 @@ Este proyecto es una API para acortar URLs, permitiendo a los usuarios registrad
 
 2. Configura las variables de entorno en un archivo `.env`:
    ```env
-   MONGODB_URI=tu_conexion_mongodb
-   JWT_SECRET=tu_secreto_jwt
-   PORT=3000
+   PORT= "PUERTO SE MONTARA EL BACKEND"
+   DB_NOSQL= "API KEY DE LA BD DE MONGODB"
+   SECRET_JWT_SEED= "CADENA DE TEXTO PARA CIFRAR LAS CLAVES"
    ```
+   **Nota:** No se tuvo tiempo para usar otro servicio para esconder las variables de entorno, por lo que en la rama de producción se utiliza directamente el archivo `.env`.
 
 3. Inicia el servidor:
    ```bash
@@ -55,5 +55,4 @@ Este proyecto es una API para acortar URLs, permitiendo a los usuarios registrad
 
 ## Justificación del Uso de Autenticación
 Algunos endpoints requieren autenticación porque están relacionados con la gestión de URLs de un usuario, asegurando que solo el dueño de los enlaces pueda ver o eliminar sus datos. Sin embargo, la generación de URLs cortas para invitados es abierta, permitiendo un uso más accesible del servicio sin necesidad de registro.
-
 
