@@ -4,6 +4,11 @@ const Acortados = require("../models/Acortados");
 const Usuario = require("../models/Usuario");
 const { generateUniqueShortUrl } = require("../helpers/UniqueShortURL");
 
+
+/**
+ * Crea una nueva URL acortada. Si el usuario proporciona una URL personalizada, se verifica su disponibilidad.
+ * Si no, se genera una URL única aleatoria. Luego, se guarda en la base de datos.
+ */
 const NewURLAcortado = async (req, res = response) => {
     try {
         console.log(123);
@@ -55,24 +60,26 @@ const NewURLAcortado = async (req, res = response) => {
     }
 };
 
+
+/**
+ * Redirige una URL acortada a su URL original si existe y no ha expirado.
+ * También incrementa el contador de vistas de la URL acortada.
+ */
 const RedirectURL = async (req, res = response) => {
     try {
 
         const { urlid} = req.body;
 
-        // Buscar el documento en la base de datos
         const acortado = await Acortados.findOne({ URLAcortado: urlid });
 
         if (!acortado) {
             return res.json({ ok: true, disponible: false });
         }
 
-        // Verificar si el enlace ha expirado
         if (new Date() > acortado.FechaExperacion) {
             return res.json({ ok: true, disponible: false });
         }
 
-        // Incrementar el contador de vistas
         acortado.vistas += 1;
         await acortado.save();
 
@@ -90,6 +97,10 @@ const RedirectURL = async (req, res = response) => {
     }
 };
 
+
+/**
+ * Obtiene todas las URL acortadas asociadas a un usuario autenticado.
+ */
 const GetPanelControl = async (req, res = response) => {
     try {
         const IdUser = req.uid
@@ -118,6 +129,9 @@ const GetPanelControl = async (req, res = response) => {
 };
 
 
+/**
+ * Renueva la fecha de expiración de una URL acortada por 3 días adicionales.
+ */
 const RenovarAcotador = async (req, res = response) => {
     try {
         const { id } = req.body;
@@ -144,6 +158,10 @@ const RenovarAcotador = async (req, res = response) => {
     }
 };
 
+
+/**
+ * Elimina una URL acortada de la base de datos según su ID.
+ */
 const EliminarAcotador = async (req, res = response) => {
     try {
         const { id } = req.body;
