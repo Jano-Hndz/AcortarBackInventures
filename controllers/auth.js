@@ -20,7 +20,7 @@ const CrearUsuario = async(req,res=response)=>{
             });
         }
 
-        const usuario=new Usuario(req.body)
+        const usuario=new Usuario({...req.body,rol:"Regular"})
 
         // Encriptar contraseña
         const salt = bcrypt.genSaltSync();
@@ -36,7 +36,7 @@ const CrearUsuario = async(req,res=response)=>{
             ok:true,
             uid: usuario.id,
             name: usuario.name,
-            rol: "admin",
+            rol: "Regular",
             token
         })
 
